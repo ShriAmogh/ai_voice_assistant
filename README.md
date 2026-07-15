@@ -86,21 +86,21 @@ The backend implements a **Turn State Machine** to capture precise, granular tel
 Testing a multi-modal voice agent requires moving beyond standard text evaluation. Audio agents introduce dimensions like timing, tone, and asynchronous interruption.
 
 ### Key Dimensions to Measure
-1. **Domain Adherence (Guardrails)**: Does the agent stay strictly within the travel domain?
-2. **Jailbreak Resistance**: Does the agent ignore attempts to override its system prompts via voice commands?
-3. **Latency (Time-To-First-Token)**: Is the delay between the user finishing their sentence and the AI starting to speak consistently under 1-2 seconds? *(Note: The measured TTFT is currently intentionally high because the local client-side VAD was removed. It now relies entirely on Gemini's server-side VAD, meaning the tracked span duration includes the time the user spends thinking/silent before speaking).*
-4. **Interruptions (Barge-In)**: Can the user interrupt a long-winded AI response, and does the AI successfully abort its playback and listen to the new context?
-5. **Tool Call Accuracy**: Does the agent extract correct entities (e.g. `origin="SFO", destination="JFK"`) from messy spoken audio?
-6. **Conversational Flow (Greeting)**: Does the agent proactively guide the user at the start of the session?
+1. **Domain Adherence (Guardrails)**: Ensured that the agent stays strictly within the travel domain.
+2. **Jailbreak Resistance**: Verified that the agent ignores attempts to override its system prompts via voice commands.
+3. **Latency (Time-To-First-Token)**: Measured the delay between the user finishing their sentence and the AI starting to speak to ensure it is consistently under 1-2 seconds. *(Note: The measured TTFT is currently intentionally high because the local client-side VAD was removed. It now relies entirely on Gemini's server-side VAD, meaning the tracked span duration includes the time the user spends thinking/silent before speaking).*
+4. **Interruptions (Barge-In)**: Tested if the user can interrupt a long-winded AI response, and if the AI successfully aborts its playback and listens to the new context.
+5. **Tool Call Accuracy**: Verified the agent extracts correct entities (e.g. `origin="SFO", destination="JFK"`) from messy spoken audio.
+6. **Conversational Flow (Greeting)**: Verified the agent proactively guides the user at the start of the session.
 7. **Conversation Quality**: 
-   - **Naturalness**: Does the voice and phrasing sound human and fluid?
-   - **Helpfulness**: Does the agent actively try to solve the user's travel problems?
-   - **Conciseness**: Are the responses short and well-suited for voice (no reading long paragraphs)?
-   - **Correctness**: Is the information provided factually accurate?
-8. **Context Retention & Memory**: Does the agent remember details (like origin city) mentioned earlier in the voice loop?
-9. **Streaming Quality**: Is the bidirectional audio stream stable with absolutely no audio chunk loss, jitter, or robot-voice artifacts during real-time playback?
-10. **Transcription Accuracy**: How accurately does the underlying model transcribe and interpret spoken accents, background noise, or mumbled speech?
-11. **Multilingual Quality**: Does the agent seamlessly detect and respond fluently in the user's spoken language without explicit prompting?
+   - **Naturalness**: Ensure the voice and phrasing sound human and fluid.
+   - **Helpfulness**: Confirm the agent actively tries to solve the user's travel problems.
+   - **Conciseness**: Verify the responses are short and well-suited for voice (no reading long paragraphs).
+   - **Correctness**: Check that the information provided is factually accurate.
+8. **Context Retention & Memory**: Test if the agent remembers details (like origin city) mentioned earlier in the voice loop.
+9. **Streaming Quality**: Ensure the bidirectional audio stream is stable with absolutely no audio chunk loss, jitter, or robot-voice artifacts during real-time playback.
+10. **Transcription Accuracy**: After few experimental runs, I realized that the transcriptions were accurate, it picks up correct words and context.
+11. **Multilingual Quality**: Yes, the agent seamlessly detects and responds fluently in the user's spoken language without explicit prompting.
 
 ### Example Test Cases & Scoring Strategy
 

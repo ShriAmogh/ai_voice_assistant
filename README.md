@@ -81,7 +81,7 @@ The backend implements a **Turn State Machine** to capture precise, granular tel
 
 ---
 
-## 🧪 How to Evaluate this Voice Agent
+## Evaluation
 
 Testing a multi-modal voice agent requires moving beyond standard text evaluation. Audio agents introduce dimensions like timing, tone, and asynchronous interruption.
 

@@ -99,7 +99,7 @@ Testing a multi-modal voice agent requires moving beyond standard text evaluatio
    - **Correctness**: Check that the information provided is factually accurate.
 8. **Context Retention & Memory**: Test if the agent remembers details (like origin city) mentioned earlier in the voice loop.
 9. **Streaming Quality**: Ensure the bidirectional audio stream is stable with absolutely no audio chunk loss, jitter, or robot-voice artifacts during real-time playback.
-10. **Transcription Accuracy**: After few experimental runs, I realized that the transcriptions were accurate, it picks up correct words and context.
+10. **Transcription Accuracy**: After few experimental runs, I realized that the transcriptions were accurate, it picks up correct words and context and user logs are mentioned in the activity log on UI.
 11. **Multilingual Quality**: Yes, the agent seamlessly detects and responds fluently in the user's spoken language without explicit prompting.
 
 ### Example Test Cases & Scoring Strategy

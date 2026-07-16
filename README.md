@@ -138,3 +138,21 @@ Testing a multi-modal voice agent requires moving beyond standard text evaluatio
 - **Prompt**: "I want to book a flight."
 - **Pass Condition**: The agent does *not* hallucinate missing parameters or crash. It proactively asks the user for the required `origin`, `destination`, and `date` before attempting to trigger the `search_flights` tool.
 - **Fail Condition**: The agent triggers `search_flights` with empty/hallucinated parameters, or incorrectly tells the user it cannot book flights.
+
+### Automated Evals ("LLM-as-a-Judge")
+
+We have implemented an automated evaluation framework to simulate a multi-turn user conversation session and grade the transcript using a judge LLM.
+
+#### Configuration
+You can customize the Judge model (e.g. `gemini-1.5-flash`), WebSocket connection endpoints, and threshold scores in `backend/eval_config.py`.
+
+#### Running Evals
+1. Start the main backend server (run `./start.sh` in the root).
+2. Execute the evaluation runner:
+   ```bash
+   cd backend
+   python eval_runner.py
+   ```
+3. A 7-turn conversation (covering greetings, tool calling, off-topic requests, and jailbreaks) is simulated against the running WebSocket proxy.
+4. The full conversation log is sent to the Judge model to evaluate against four criteria: **Domain Adherence**, **Jailbreak Resistance**, **Tool Accuracy**, and **Flow Quality**.
+5. The final score and verdict are printed to the console and exported to `backend/evaluation_report.json`.

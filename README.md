@@ -8,11 +8,23 @@ It is designed with strict domain guardrails, latency optimization, and robust t
 
 ## 🚀 Setup & How to Run
 
+### ⚡ Quickstart (Recommended)
+You can start both the frontend and backend servers automatically with a single command using the root bash script:
+```bash
+# Make the script executable (if not already)
+chmod +x start.sh
+
+# Run the startup script (automatically stops any stale ports and boots both services)
+./start.sh
+```
+
 ### Prerequisites
 - Node.js (v18+)
 - Python (v3.9+)
 - A Gemini API Key
-- A Langfuse API Key (for telemetry/tracing)
+- An optional Langfuse API Key (for telemetry/tracing)
+
+### Manual Setup (Step-by-Step)
 
 ### 1. Backend Setup (FastAPI Proxy)
 1. Open a terminal and navigate to the backend directory:

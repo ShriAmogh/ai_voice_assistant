@@ -53,7 +53,7 @@ async def websocket_endpoint(websocket: WebSocket):
     )
     trace.event(name="Session Started")
     
-    if not GEMINI_API_KEY or GEMINI_API_KEY == "YOUR_API_KEY_HERE":
+    if not GEMINI_API_KEY:
         logger.error("GEMINI_API_KEY is missing or invalid.")
         trace.event(name="Error", input={"message": "Missing GEMINI_API_KEY"})
         langfuse.flush()
@@ -111,7 +111,14 @@ async def websocket_endpoint(websocket: WebSocket):
                                 }
                             },
                             "systemInstruction": SYSTEM_INSTRUCTION,
-                            "tools": MOCK_TOOLS
+                            "tools": MOCK_TOOLS,
+                            "realtimeInputConfig": {
+                                "automaticActivityDetection": {
+                                    "disabled": False,
+                                    "silenceDurationMs": 800,
+                                    "startOfSpeechSensitivity": "START_SENSITIVITY_HIGH"
+                                }
+                            }
                         }
                     }
                     await gemini_ws.send(json.dumps(setup_payload))

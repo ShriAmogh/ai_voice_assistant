@@ -93,7 +93,18 @@ The backend implements a **Turn State Machine** to capture precise, granular tel
 
 ---
 
-## Evaluation
+## Ambiguities & Design Decisions
+
+During development, a few requirements were open-ended and required specific design choices:
+
+1. **Context Retention & Session Memory Scope**: It highlights testing the agent's ability to retain context. It was ambiguous whether this required persistent database storage across page reloads. 
+   - *Resolution*: Since WebSockets maintain state, we relied entirely on Gemini's active session (voice loop) history window. If a user says "search flights to Paris" and then "what's the weather there", the model natively resolves the context. No external database persistence was implemented currently as reloading can lead to a fresh start.
+2. **VAD Implementation (Client vs. Server)**: It was mentioned VAD/barge-in but doesn't specify if this should run locally in the browser or on the server.
+   - *Resolution*: We initially tried a local WebAudio analyser, but triggering manual `turnComplete` signals without user audio content violated the Gemini Live WebSocket schema, causing `1007 (invalid frame payload)` crashes. We pivoted to relying entirely on the native **server-side VAD** provided by the Gemini API (`automaticActivityDetection`), tuning `silenceDurationMs` to `800` and `startOfSpeechSensitivity` to `START_SENSITIVITY_HIGH` to achieve excellent responsiveness without connection instability.
+
+---
+
+## 🧪 Evaluation
 
 Testing a multi-modal voice agent requires moving beyond standard text evaluation. Audio agents introduce dimensions like timing, tone, and asynchronous interruption.
 
